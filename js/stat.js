@@ -11,8 +11,8 @@ window.renderStatistics = function (ctx, names, times) {
 
   ctx.fillStyle = 'blue';
   ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', 150, 50);
-  ctx.fillText('Список результатов:', 180, 70);
+  ctx.fillText('Ура вы победили!', 150, 30);
+  ctx.fillText('Список результатов:', 180, 50);
 
 
   var histogramHeight = 150;
@@ -38,6 +38,7 @@ window.renderStatistics = function (ctx, names, times) {
 
     ctx.fillRect(initialX + (barWidth + indent) * i, (histogramHeight - times[i] * step) + initialY, barWidth, times[i] * step);
     ctx.fillText(names[i], initialX + (barWidth + indent) * i, histogramHeight + 100);
+    ctx.fillText(Math.floor(times[i]), initialX + (barWidth + indent) * i, (histogramHeight - times[i] * step) + initialY - 5);
   }
 };
 
