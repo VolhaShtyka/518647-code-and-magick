@@ -8,10 +8,67 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
+var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+
 var WIZARDS_COUNT = 4;
 
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
+var KEY_CODE_ESCAPE = 27;
+
+var KEY_CODE_ENTER = 13;
+
+var userDialog = document.querySelector('.overlay.setup');
+var userDialogOpen = document.querySelector('.setup-open-icon');
+var userDialogClose = document.querySelector('.setup-close');
+var userDialogWizardCoat = document.querySelector('.setup-wizard .wizard-coat');
+var userDialogWizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
+var userDialogWizardFireball = document.querySelector('.setup-fireball-wrap');
+
+var dialogEscPressHandler = function (evt) {
+  if (evt.keyCode === KEY_CODE_ESCAPE && evt.target.nodeName !== 'INPUT') {
+    closeUserDialog();
+  }
+};
+
+var dialogEnterPressHandler = function (evt) {
+  if (evt.keyCode === KEY_CODE_ENTER) {
+    openUserDialog();
+  }
+};
+
+var coatElementClickHandler = function () {
+  userDialogWizardCoat.style.fill = randomValue(COAT_COLORS);
+};
+
+var eyesElementClickHandler = function () {
+  userDialogWizardEyes.style.fill = randomValue(EYES_COLORS);
+};
+
+var fireballElementClickHandler = function () {
+  userDialogWizardFireball.style.background = randomValue(FIREBALL_COLORS);
+};
+
+var openUserDialog = function () {
+  userDialog.classList.remove('hidden');
+  document.addEventListener('keydown', dialogEscPressHandler);
+};
+
+var closeUserDialog = function () {
+  userDialog.classList.add('hidden');
+  document.removeEventListener('keydown', dialogEscPressHandler);
+};
+
+userDialogOpen.addEventListener('click', openUserDialog);
+userDialogOpen.addEventListener('keydown', dialogEnterPressHandler);
+userDialogClose.addEventListener('click', closeUserDialog);
+userDialogClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === KEY_CODE_ENTER) {
+    closeUserDialog();
+  }
+});
+userDialog.addEventListener('keydown', dialogEscPressHandler);
+userDialogWizardCoat.addEventListener('click', coatElementClickHandler);
+userDialogWizardEyes.addEventListener('click', eyesElementClickHandler);
+userDialogWizardFireball.addEventListener('click', fireballElementClickHandler);
 
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 
