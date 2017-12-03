@@ -1,13 +1,15 @@
 'use strict';
 
 (function () {
+
+  window.setup = {
+    COAT_COLORS: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
+    EYES_COLORS: ['black', 'red', 'blue', 'yellow', 'green']
+  };
+
   var FIRST_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 
   var LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-
-  window.COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-
-  window.EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
   var WIZARDS_COUNT = 4;
 
@@ -19,9 +21,9 @@
     var wizards = [];
     for (var i = 0; i < wizardsCount; i++) {
       wizards[i] = {
-        name: window.randomValue(FIRST_NAMES) + ' ' + window.randomValue(LAST_NAMES),
-        coatColor: window.randomValue(window.COAT_COLORS),
-        eyesColor: window.randomValue(window.EYES_COLORS)
+        name: window.util.getRandomValue(FIRST_NAMES) + ' ' + window.util.getRandomValue(LAST_NAMES),
+        coatColor: window.util.getRandomValue(window.setup.COAT_COLORS),
+        eyesColor: window.util.getRandomValue(window.setup.EYES_COLORS)
       };
     }
     return wizards;

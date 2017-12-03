@@ -22,15 +22,15 @@
   };
 
   var coatElementClickHandler = function () {
-    userDialogWizardCoat.style.fill = window.randomValue(window.COAT_COLORS);
+    userDialogWizardCoat.style.fill = window.util.getRandomValue(window.setup.COAT_COLORS);
   };
 
   var eyesElementClickHandler = function () {
-    userDialogWizardEyes.style.fill = window.randomValue(window.EYES_COLORS);
+    userDialogWizardEyes.style.fill = window.util.getRandomValue(window.setup.EYES_COLORS);
   };
 
   var fireballElementClickHandler = function () {
-    userDialogWizardFireball.style.background = window.randomValue(FIREBALL_COLORS);
+    userDialogWizardFireball.style.background = window.util.getRandomValue(FIREBALL_COLORS);
   };
 
   var openUserDialog = function () {
