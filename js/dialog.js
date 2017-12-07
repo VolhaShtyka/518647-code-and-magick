@@ -7,9 +7,31 @@
   var userDialog = document.querySelector('.overlay.setup');
   var userDialogOpen = document.querySelector('.setup-open-icon');
   var userDialogClose = document.querySelector('.setup-close');
+  var userDialogMoving = document.querySelector('.setup-user-pic');
   var userDialogWizardCoat = document.querySelector('.setup-wizard .wizard-coat');
   var userDialogWizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
   var userDialogWizardFireball = document.querySelector('.setup-fireball-wrap');
+
+  userDialogMoving.style.zIndex = 1;
+  userDialog.draggable = true;
+
+  var dialogMovingHandler = function (evt) {
+    evt.preventDefault();
+    userDialog.style.top = evt.clientY + 'px';
+    userDialog.style.left = evt.clientX + userDialog.offsetWidth / 2 + 'px';
+  };
+
+  var dialogMovingUpHandler = function (evt) {
+    evt.preventDefault();
+    document.removeEventListener('mousemove', dialogMovingHandler);
+    document.removeEventListener('mouseup', dialogMovingUpHandler);
+  };
+
+  var dialogMovingDownHandler = function (evt) {
+    evt.preventDefault();
+    document.addEventListener('mousemove', dialogMovingHandler);
+    document.addEventListener('mouseup', dialogMovingUpHandler);
+  };
 
   var dialogEscPressHandler = function (evt) {
     if (evt.target.nodeName !== 'INPUT') {
@@ -40,6 +62,8 @@
 
   var closeUserDialog = function () {
     userDialog.classList.add('hidden');
+    userDialog.style.top = '';
+    userDialog.style.left = '';
     document.removeEventListener('keydown', dialogEscPressHandler);
   };
 
@@ -50,6 +74,7 @@
     window.util.isEnterPressed(evt, closeUserDialog);
   });
   userDialog.addEventListener('keydown', dialogEscPressHandler);
+  userDialogMoving.addEventListener('mousedown', dialogMovingDownHandler);
   userDialogWizardCoat.addEventListener('click', coatElementClickHandler);
   userDialogWizardEyes.addEventListener('click', eyesElementClickHandler);
   userDialogWizardFireball.addEventListener('click', fireballElementClickHandler);
