@@ -15,10 +15,13 @@
   userDialogMoving.style.zIndex = 1;
   userDialog.draggable = true;
 
+  var offsetY;
+  var offsetX;
+
   var dialogMovingHandler = function (evt) {
     evt.preventDefault();
-    userDialog.style.top = evt.clientY + 'px';
-    userDialog.style.left = evt.clientX + userDialog.offsetWidth / 2 + 'px';
+    userDialog.style.top = evt.clientY + offsetY + 'px';
+    userDialog.style.left = evt.clientX + offsetX + 'px';
   };
 
   var dialogMovingUpHandler = function (evt) {
@@ -29,6 +32,8 @@
 
   var dialogMovingDownHandler = function (evt) {
     evt.preventDefault();
+    offsetY = userDialog.offsetTop - userDialog.getBoundingClientRect().top - evt.offsetY;
+    offsetX = userDialog.offsetLeft - userDialog.getBoundingClientRect().left - evt.offsetX;
     document.addEventListener('mousemove', dialogMovingHandler);
     document.addEventListener('mouseup', dialogMovingUpHandler);
   };
