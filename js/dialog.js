@@ -49,15 +49,23 @@
   };
 
   var coatElementClickHandler = function () {
-    userDialogWizardCoat.style.fill = window.util.getRandomValue(window.setup.COAT_COLORS);
+    window.colorizeElement(userDialogWizardCoat, window.setup.COAT_COLORS, fillElement);
   };
 
   var eyesElementClickHandler = function () {
-    userDialogWizardEyes.style.fill = window.util.getRandomValue(window.setup.EYES_COLORS);
+    window.colorizeElement(userDialogWizardEyes, window.setup.EYES_COLORS, fillElement);
   };
 
   var fireballElementClickHandler = function () {
-    userDialogWizardFireball.style.background = window.util.getRandomValue(FIREBALL_COLORS);
+    window.colorizeElement(userDialogWizardFireball, FIREBALL_COLORS, changeElementBackground);
+  };
+
+  var fillElement = function (element, color) {
+    element.style.fill = color;
+  };
+
+  var changeElementBackground = function (element, color) {
+    element.style.backgroundColor = color;
   };
 
   var openUserDialog = function () {
