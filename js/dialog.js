@@ -2,7 +2,9 @@
 
 (function () {
 
-  var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+  var COLOR_FIREBALL = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+  var COLOR_COAT = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+  var COLOR_EYES = ['black', 'red', 'blue', 'yellow', 'green'];
 
   var userDialog = document.querySelector('.overlay.setup');
   var userDialogOpen = document.querySelector('.setup-open-icon');
@@ -11,6 +13,7 @@
   var userDialogWizardCoat = document.querySelector('.setup-wizard .wizard-coat');
   var userDialogWizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
   var userDialogWizardFireball = document.querySelector('.setup-fireball-wrap');
+  var userDialogForm = userDialog.querySelector('.setup-wizard-form');
 
   userDialogMoving.style.zIndex = 1;
   userDialog.draggable = true;
@@ -49,15 +52,24 @@
   };
 
   var coatElementClickHandler = function () {
-    window.colorizeElement(userDialogWizardCoat, window.setup.COAT_COLORS, fillElement);
+    window.colorizeElement(userDialogWizardCoat, COLOR_COAT, fillElement);
   };
 
   var eyesElementClickHandler = function () {
-    window.colorizeElement(userDialogWizardEyes, window.setup.EYES_COLORS, fillElement);
+    window.colorizeElement(userDialogWizardEyes, COLOR_EYES, fillElement);
   };
 
   var fireballElementClickHandler = function () {
-    window.colorizeElement(userDialogWizardFireball, FIREBALL_COLORS, changeElementBackground);
+    window.colorizeElement(userDialogWizardFireball, COLOR_FIREBALL, changeElementBackground);
+  };
+
+  var loadHandler = function () {
+    userDialog.classList.add('hidden');
+  };
+
+  var formSubmitHandler = function (evt) {
+    window.backend.save(new FormData(userDialogForm), loadHandler, window.setup.errorHandler);
+    evt.preventDefault();
   };
 
   var fillElement = function (element, color) {
@@ -91,8 +103,7 @@
   userDialogWizardCoat.addEventListener('click', coatElementClickHandler);
   userDialogWizardEyes.addEventListener('click', eyesElementClickHandler);
   userDialogWizardFireball.addEventListener('click', fireballElementClickHandler);
-
-  userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  userDialogForm.addEventListener('submit', formSubmitHandler);
 
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
