@@ -52,11 +52,13 @@
   };
 
   var coatElementClickHandler = function () {
-    window.colorizeElement(userDialogWizardCoat, COLOR_COAT, fillElement);
+    window.similar.coatColor = window.colorizeElement(userDialogWizardCoat, COLOR_COAT, fillElement);
+    window.debounce(window.similar.updateSimilarWizardsHandler);
   };
 
   var eyesElementClickHandler = function () {
-    window.colorizeElement(userDialogWizardEyes, COLOR_EYES, fillElement);
+    window.similar.eyes = window.colorizeElement(userDialogWizardEyes, COLOR_EYES, fillElement);
+    window.debounce(window.similar.updateSimilarWizardsHandler);
   };
 
   var fireballElementClickHandler = function () {
@@ -106,5 +108,10 @@
   userDialogForm.addEventListener('submit', formSubmitHandler);
 
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
+  window.dialog = {
+    userDialogWizardCoat: userDialogWizardCoat,
+    userDialogWizardEyes: userDialogWizardEyes
+  };
 
 })();

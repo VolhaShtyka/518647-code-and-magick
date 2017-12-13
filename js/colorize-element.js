@@ -2,6 +2,8 @@
 
 (function () {
   window.colorizeElement = function (element, colors, action) {
-    action(element, window.util.getRandomValue(colors));
+    var color = window.util.getRandomValue(colors);
+    action(element, color);
+    return color;
   };
 })();
